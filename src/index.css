@@ -1,0 +1,37 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap");
+
+body {
+  font-family: "Noto Sans", sans-serif;
+  font-size: 10px;
+}
+
+.chart {
+  margin: 10px;
+  padding-top: 10px;
+}
+
+.chart .right {
+  stroke: white;
+  fill: indianred;
+}
+
+.chart .left {
+  stroke: white;
+  fill: steelblue;
+}
+
+.chart rect:hover {
+  fill: #64707d;
+}
+
+.chart text {
+  fill: #6dbe45;
+}
+
+.chart text.name {
+  fill: black;
+}
+
+.chart text.title {
+  fill: #2216ff;
+}

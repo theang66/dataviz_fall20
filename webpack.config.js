@@ -10,16 +10,16 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.css$/,
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.(txt|csv)$/,
         use: [
-          { loader: "style-loader" },
           {
-            loader: "css-loader",
-            options: {
-              modules: true,
-            },
+            loader: "file-loader",
+            options: {},
           },
-          { loader: "sass-loader" },
         ],
       },
     ],

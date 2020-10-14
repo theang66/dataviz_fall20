@@ -1,12 +1,16 @@
 import * as d3 from "d3";
 import "./index.css";
 import symptomsTwoWeeks from "./data/2019/symptoms_two_weeks.csv";
+import symptomsThisMonth from "./data/2019/symptoms_this_month.csv";
+import symptomsThisYear from "./data/2019/symptoms_this_year.csv";
+import symptomsNotThisYear from "./data/2019/symptoms_not_this_year.csv";
+import symptomsNever from "./data/2019/symptoms_never.csv";
 
 // Symptoms chart
 // https://bl.ocks.org/kaijiezhou/bac86244017c850034fe
-var labelArea = 160;
+var labelArea = 120;
 var chart,
-  width = 100,
+  width = 200,
   bar_height = 20,
   height = bar_height * 10;
 var rightOffset = width + labelArea;
@@ -17,11 +21,11 @@ var xFrom = d3.scaleLinear().range([0, width]);
 var xTo = d3.scaleLinear().range([0, width]);
 var y = d3.scaleBand().rangeRound([20, height]);
 
-function render(data) {
+function renderSymptoms(data) {
   var chart = d3
     .select("body")
     .append("svg")
-    .attr("class", "chart")
+    .attr("class", "symptomsChart")
     .attr("width", labelArea + width + width)
     .attr("height", height);
 
@@ -45,6 +49,8 @@ function render(data) {
     return y(d.symptoms);
   };
 
+  chart.append("g");
+
   chart
     .selectAll("rect.left")
     .data(data)
@@ -66,7 +72,7 @@ function render(data) {
     .enter()
     .append("text")
     .attr("x", function (d) {
-      return width - xFrom(d[lCol]) - 40;
+      return width - xFrom(d[lCol]) - 30;
     })
     .attr("y", function (d) {
       return y(d.symptoms) + y.bandwidth() / 2;
@@ -109,7 +115,7 @@ function render(data) {
     .attr("height", y.bandwidth());
 
   chart
-    .selectAll("text.score")
+    .selectAll("text.rightscore")
     .data(data)
     .enter()
     .append("text")
@@ -155,4 +161,64 @@ function type(d) {
   };
 }
 
-d3.csv(symptomsTwoWeeks, type).then(render);
+d3.csv(symptomsTwoWeeks, type).then(renderSymptoms);
+
+var buttonGroup = d3
+  .select("body")
+  .append("div")
+  .attr("class", "symptomsButton");
+
+var twoWeeksButton = d3
+  .select(".symptomsButton")
+  .append("input")
+  .attr("type", "button")
+  .attr("name", "toggle")
+  .attr("value", "Two Weeks")
+  .on("click", function twoWeeksPressed() {
+    d3.selectAll(".symptomsChart").remove();
+    d3.csv(symptomsTwoWeeks, type).then(renderSymptoms);
+  });
+
+var thisMonthButton = d3
+  .select(".symptomsButton")
+  .append("input")
+  .attr("type", "button")
+  .attr("name", "toggle")
+  .attr("value", "This Month")
+  .on("click", function thisMonthPressed() {
+    d3.selectAll(".symptomsChart").remove();
+    d3.csv(symptomsThisMonth, type).then(renderSymptoms);
+  });
+
+var thisYearButton = d3
+  .select(".symptomsButton")
+  .append("input")
+  .attr("type", "button")
+  .attr("name", "toggle")
+  .attr("value", "This Year")
+  .on("click", function thisYearPressed() {
+    d3.selectAll(".symptomsChart").remove();
+    d3.csv(symptomsThisYear, type).then(renderSymptoms);
+  });
+
+var notThisYearButton = d3
+  .select(".symptomsButton")
+  .append("input")
+  .attr("type", "button")
+  .attr("name", "toggle")
+  .attr("value", "Not This Year")
+  .on("click", function notThisYearPressed() {
+    d3.selectAll(".symptomsChart").remove();
+    d3.csv(symptomsNotThisYear, type).then(renderSymptoms);
+  });
+
+var neverButton = d3
+  .select(".symptomsButton")
+  .append("input")
+  .attr("type", "button")
+  .attr("name", "toggle")
+  .attr("value", "Never")
+  .on("click", function neverPressed() {
+    d3.selectAll(".symptomsChart").remove();
+    d3.csv(symptomsNever, type).then(renderSymptoms);
+  });

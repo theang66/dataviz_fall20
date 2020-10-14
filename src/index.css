@@ -5,33 +5,37 @@ body {
   font-size: 10px;
 }
 
-.chart {
+.symptomsChart {
   margin: 10px;
   padding-top: 10px;
 }
 
-.chart .right {
+.symptomsChart .right {
   stroke: white;
   fill: indianred;
 }
 
-.chart .left {
+.symptomsChart .left {
   stroke: white;
   fill: steelblue;
 }
 
-.chart rect:hover {
+.symptomsChart rect:hover {
   fill: #64707d;
 }
 
-.chart text {
+.symptomsChart text {
   fill: #6dbe45;
 }
 
-.chart text.name {
+.symptomsChart text.name {
   fill: black;
 }
 
-.chart text.title {
+.symptomsChart text.title {
   fill: #2216ff;
+}
+
+.symptomsButton {
+  display: block;
 }

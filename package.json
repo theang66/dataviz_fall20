@@ -23,7 +23,7 @@
     "d3": "^6.2.0",
     "d3-collection": "^1.0.7",
     "file-loader": "^6.1.0",
-    "fullpage": "^1.5.1",
+    "fullpage.js": "^3.0.9",
     "jquery": "^3.5.1",
     "lodash": "^4.17.20"
   }

@@ -36,6 +36,6 @@ body {
   fill: #2216ff;
 }
 
-.symptomsButton {
+.symptomsButton input {
   display: block;
 }

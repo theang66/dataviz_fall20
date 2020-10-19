@@ -39,3 +39,15 @@ body {
 .symptomsButton input {
   display: block;
 }
+
+.leftscore:nth-of-type(12) {
+  display: none;
+}
+
+.rightscore:nth-of-type(36) {
+  display: none;
+}
+
+.name:nth-of-type(24) {
+  display: none;
+}

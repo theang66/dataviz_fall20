@@ -1,4 +1,5 @@
 import * as d3 from "d3";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import symptomsTwoWeeks from "./data/2019/symptoms_two_weeks.csv";
 import symptomsThisMonth from "./data/2019/symptoms_this_month.csv";
@@ -8,6 +9,7 @@ import symptomsNever from "./data/2019/symptoms_never.csv";
 
 // Symptoms chart
 // https://bl.ocks.org/kaijiezhou/bac86244017c850034fe
+// https://observablehq.com/@uvizlab/d3-tutorial-4-bar-chart-with-transition
 var chart,
   width = 200,
   height = 240;
@@ -262,57 +264,42 @@ function updateBar(data) {
 
 d3.csv(symptomsTwoWeeks, type).then(renderSymptoms);
 
+// Symptoms buttons
+var symptomsButtons = [
+  {
+    name: "Two Weeks",
+    data: symptomsTwoWeeks,
+  },
+  {
+    name: "This Month",
+    data: symptomsThisMonth,
+  },
+  {
+    name: "This Year",
+    data: symptomsThisYear,
+  },
+  {
+    name: "Not This Year",
+    data: symptomsNotThisYear,
+  },
+  {
+    name: "Never",
+    data: symptomsNever,
+  },
+];
+
 var buttonGroup = d3
   .select("body")
   .append("div")
   .attr("class", "symptomsButton");
 
-var twoWeeksButton = d3
-  .select(".symptomsButton")
-  .append("input")
-  .attr("type", "button")
-  .attr("name", "toggle")
-  .attr("value", "Two Weeks")
-  .on("click", function twoWeeksPressed() {
-    d3.csv(symptomsTwoWeeks, type).then(updateBar);
-  });
-
-var thisMonthButton = d3
-  .select(".symptomsButton")
-  .append("input")
-  .attr("type", "button")
-  .attr("name", "toggle")
-  .attr("value", "This Month")
-  .on("click", function thisMonthPressed() {
-    d3.csv(symptomsThisMonth, type).then(updateBar);
-  });
-
-var thisYearButton = d3
-  .select(".symptomsButton")
-  .append("input")
-  .attr("type", "button")
-  .attr("name", "toggle")
-  .attr("value", "This Year")
-  .on("click", function thisYearPressed() {
-    d3.csv(symptomsThisYear, type).then(updateBar);
-  });
-
-var notThisYearButton = d3
-  .select(".symptomsButton")
-  .append("input")
-  .attr("type", "button")
-  .attr("name", "toggle")
-  .attr("value", "Not This Year")
-  .on("click", function notThisYearPressed() {
-    d3.csv(symptomsNotThisYear, type).then(updateBar);
-  });
-
-var neverButton = d3
-  .select(".symptomsButton")
-  .append("input")
-  .attr("type", "button")
-  .attr("name", "toggle")
-  .attr("value", "Never")
-  .on("click", function neverPressed() {
-    d3.csv(symptomsNever, type).then(updateBar);
-  });
+symptomsButtons.map(function (d) {
+  d3.select(".symptomsButton")
+    .append("input")
+    .attr("type", "button")
+    .attr("name", "toggle")
+    .attr("value", d.name)
+    .on("click", function symptomsButtonPressed() {
+      d3.csv(d.data, type).then(updateBar);
+    });
+});

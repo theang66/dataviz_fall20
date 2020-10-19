@@ -7,7 +7,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "build"),
   },
-  plugins: [new HtmlWebpackPlugin()],
+  plugins: [new HtmlWebpackPlugin({ title: "Data Viz" })],
   devServer: {
     contentBase: path.join(__dirname, "dist"),
     compress: true,

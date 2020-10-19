@@ -5,6 +5,10 @@ body {
   font-size: 10px;
 }
 
+h1 {
+  text-align: center;
+}
+
 .symptomsChart {
   margin: 10px;
   padding-top: 10px;

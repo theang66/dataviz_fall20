@@ -7,9 +7,11 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "build"),
   },
-  plugins: [new HtmlWebpackPlugin({ title: "Data Viz" })],
+  plugins: [
+    new HtmlWebpackPlugin({ title: "Data Viz", template: "./src/index.html" }),
+  ],
   devServer: {
-    contentBase: path.join(__dirname, "dist"),
+    contentBase: path.join(__dirname, "build"),
     compress: true,
     port: 9000,
   },
@@ -24,7 +26,6 @@ module.exports = {
         use: [
           {
             loader: "file-loader",
-            options: {},
           },
         ],
       },

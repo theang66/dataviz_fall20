@@ -1,11 +1,19 @@
 import * as d3 from "d3";
-import "bootstrap/dist/css/bootstrap.min.css";
+import fullpage from "fullpage.js";
 import "./index.css";
+
 import symptomsTwoWeeks from "./data/2019/symptoms_two_weeks.csv";
 import symptomsThisMonth from "./data/2019/symptoms_this_month.csv";
 import symptomsThisYear from "./data/2019/symptoms_this_year.csv";
 import symptomsNotThisYear from "./data/2019/symptoms_not_this_year.csv";
 import symptomsNever from "./data/2019/symptoms_never.csv";
+
+// fullPage.js
+new fullpage("#fullPage", {
+  licenseKey: "F9826397-F07A433B-875FC4BE-6C3E8519",
+  autoScrolling: true,
+  navigation: true,
+});
 
 // Symptoms chart
 // https://bl.ocks.org/kaijiezhou/bac86244017c850034fe
@@ -24,7 +32,7 @@ var y = d3.scaleBand().rangeRound([20, height]);
 
 function renderSymptoms(data) {
   chart = d3
-    .select("body")
+    .select(".s6Chart")
     .append("svg")
     .attr("class", "symptomsChart")
     .attr("width", labelArea + width + width + 100)
@@ -289,7 +297,7 @@ var symptomsButtons = [
 ];
 
 var buttonGroup = d3
-  .select("body")
+  .select(".s6Buttons")
   .append("div")
   .attr("class", "symptomsButton");
 

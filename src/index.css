@@ -9,6 +9,10 @@ h1 {
   text-align: center;
 }
 
+.fp-sr-only {
+  display: none;
+}
+
 .symptomsChart {
   margin: 10px;
   padding-top: 10px;

@@ -59,3 +59,28 @@ h1 {
 .name:nth-of-type(24) {
   display: none;
 }
+
+.seekingHelpChart .help {
+  stroke: white;
+  fill: indianred;
+}
+
+.seekingHelpChart rect:hover {
+  fill: #64707d;
+}
+
+.seekingHelpChart text {
+  fill: #6dbe45;
+}
+
+.seekingHelpChart text.name {
+  fill: black;
+}
+
+.seekingHelpChart text.title {
+  fill: #2216ff;
+}
+
+.help:nth-of-type(2) {
+  fill: steelblue;
+}

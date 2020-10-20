@@ -1,5 +1,4 @@
 import * as d3 from "d3";
-import "./symptomsChart.js";
 import "./index.css";
 
 import symptomsTwoWeeks from "./data/2019/symptoms_two_weeks.csv";

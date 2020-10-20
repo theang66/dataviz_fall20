@@ -1,5 +1,6 @@
 import fullpage from "fullpage.js";
-import "./symptomsChart.js";
+import "./symptoms";
+import "./seekingHelp";
 import "./index.css";
 
 // fullPage.js

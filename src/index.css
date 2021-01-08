@@ -1,11 +1,20 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap"); */
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Slabo+27px&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 
 body {
-  font-family: "Noto Sans", sans-serif;
-  font-size: 10px;
+
+  font-size: 16px;
 }
 
-h1 {
+p, text {
+  font-family: 'Lato', sans-serif;
+  text-align: center;
+}
+
+h1, h2 {
+  font-family: "Libre Baskerville", serif;
   text-align: center;
 }
 
@@ -44,20 +53,39 @@ h1 {
   fill: #2216ff;
 }
 
+.symptomsButton {
+  float: right;
+}
+
 .symptomsButton input {
+  /* display: block;
+  background-color: white;
+  border: none;
+  outline: none; */
+  font-size: 14px;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  outline: none;
+  border-radius: 10px;
   display: block;
+
+  text-decoration: none;
+  text-align: center;
+  white-space: nowrap;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
 }
 
-.leftscore:nth-of-type(12) {
-  display: none;
-}
-
-.rightscore:nth-of-type(36) {
-  display: none;
-}
-
-.name:nth-of-type(24) {
-  display: none;
+.symptomsButton input:hover {
+  color: #01426a;
+  background-color: #c4c4c4;
 }
 
 .seekingHelpChart .help {

@@ -12,34 +12,32 @@ import symptomsNever from "./data/2019/symptoms_never.csv";
 // https://observablehq.com/@uvizlab/d3-tutorial-4-bar-chart-with-transition
 var chart,
   width = 200,
-  height = 240;
-var labelArea = 120;
+  height = 330;
+var labelArea = 150;
 var rightOffset = width + labelArea;
 var lCol = "international";
 var rCol = "domestic";
 
 var xFrom = d3.scaleLinear().range([0, width]);
 var xTo = d3.scaleLinear().range([0, width]);
-var y = d3.scaleBand().rangeRound([20, height]);
+var y = d3.scaleBand().rangeRound([20, height - 20]);
 
 function renderSymptoms(data) {
   chart = d3
     .select(".s6Chart")
     .append("svg")
     .attr("class", "symptomsChart")
-    .attr("width", labelArea + width + width + 100)
+    .attr("width", labelArea + width + width + 200)
     .attr("height", height);
 
-  xFrom.domain(
-    d3.extent(data, function (d) {
-      return d[lCol];
-    })
-  );
-  xTo.domain(
-    d3.extent(data, function (d) {
-      return d[rCol];
-    })
-  );
+  var maxIntl = d3.max(data, function (d) {
+    return d[lCol];
+  });
+  var maxDom = d3.max(data, function (d) {
+    return d[rCol];
+  });
+  xFrom.domain([0, maxIntl]);
+  xTo.domain([0, maxDom]);
 
   y.domain(
     data.map(function (d) {
@@ -56,7 +54,7 @@ function renderSymptoms(data) {
     .enter()
     .append("rect")
     .attr("x", function (d) {
-      return width - xFrom(d[lCol]) + 60;
+      return width - xFrom(d[lCol]) + 80;
     })
     .attr("y", yPosByIndex)
     .attr("class", "left")
@@ -71,7 +69,7 @@ function renderSymptoms(data) {
     .enter()
     .append("text")
     .attr("x", function (d) {
-      return width - xFrom(d[lCol]) + 30;
+      return width - xFrom(d[lCol]) + 50;
     })
     .attr("y", function (d) {
       return y(d.symptoms) + y.bandwidth() / 2;
@@ -81,7 +79,7 @@ function renderSymptoms(data) {
     .attr("text-anchor", "end")
     .attr("class", "leftscore")
     .text(function (d) {
-      return d[lCol];
+      return d[lCol] + "%";
     });
 
   chart
@@ -89,7 +87,7 @@ function renderSymptoms(data) {
     .data(data)
     .enter()
     .append("text")
-    .attr("x", labelArea / 2 + width + 60)
+    .attr("x", labelArea / 2 + width + 80)
     .attr("y", function (d) {
       return y(d.symptoms) + y.bandwidth() / 2;
     })
@@ -105,7 +103,7 @@ function renderSymptoms(data) {
     .data(data)
     .enter()
     .append("rect")
-    .attr("x", rightOffset + 60)
+    .attr("x", rightOffset + 80)
     .attr("y", yPosByIndex)
     .attr("class", "right")
     .attr("width", function (d) {
@@ -119,7 +117,7 @@ function renderSymptoms(data) {
     .enter()
     .append("text")
     .attr("x", function (d) {
-      return xTo(d[rCol]) + rightOffset + 95;
+      return xTo(d[rCol]) + rightOffset + 145;
     })
     .attr("y", function (d) {
       return y(d.symptoms) + y.bandwidth() / 2;
@@ -129,25 +127,25 @@ function renderSymptoms(data) {
     .attr("text-anchor", "end")
     .attr("class", "rightscore")
     .text(function (d) {
-      return d[rCol];
+      return d[rCol] + "%";
     });
 
   chart
     .append("text")
-    .attr("x", width / 3 + 60)
-    .attr("y", 20)
+    .attr("x", width / 3 + 120)
+    .attr("y", 15)
     .attr("class", "title")
     .text("International");
   chart
     .append("text")
-    .attr("x", width / 3 + rightOffset + 60)
-    .attr("y", 20)
+    .attr("x", width / 3 + rightOffset + 20)
+    .attr("y", 15)
     .attr("class", "title")
     .text("Domestic");
   chart
     .append("text")
-    .attr("x", width + labelArea / 3 + 60)
-    .attr("y", 20)
+    .attr("x", width + labelArea / 3 + 70)
+    .attr("y", 15)
     .attr("class", "title")
     .text("Symptoms");
 }
@@ -165,16 +163,14 @@ function capitalize(string) {
 }
 
 function updateBar(data) {
-  xFrom.domain(
-    d3.extent(data, function (d) {
-      return d[lCol];
-    })
-  );
-  xTo.domain(
-    d3.extent(data, function (d) {
-      return d[rCol];
-    })
-  );
+  var maxIntl = d3.max(data, function (d) {
+    return d[lCol];
+  });
+  var maxDom = d3.max(data, function (d) {
+    return d[rCol];
+  });
+  xFrom.domain([0, maxIntl]);
+  xTo.domain([0, maxDom]);
 
   y.domain(
     data.map(function (d) {
@@ -194,7 +190,7 @@ function updateBar(data) {
       return i * 100;
     })
     .attr("x", function (d) {
-      return width - xFrom(d[lCol]) + 60;
+      return width - xFrom(d[lCol]) + 80;
     })
     .attr("y", yPosByIndex)
     .attr("class", "left")
@@ -211,7 +207,7 @@ function updateBar(data) {
     .delay(function (d, i) {
       return i * 100;
     })
-    .attr("x", rightOffset + 60)
+    .attr("x", rightOffset + 80)
     .attr("y", yPosByIndex)
     .attr("class", "right")
     .attr("width", function (d) {
@@ -228,7 +224,7 @@ function updateBar(data) {
       return i * 100;
     })
     .attr("x", function (d) {
-      return width - xFrom(d[lCol]) + 30;
+      return width - xFrom(d[lCol]) + 50;
     })
     .attr("y", function (d) {
       return y(d.symptoms) + y.bandwidth() / 2;
@@ -237,7 +233,7 @@ function updateBar(data) {
     .attr("dy", ".36em")
     .attr("text-anchor", "end")
     .text(function (d) {
-      return d[lCol];
+      return d[lCol] + "%";
     });
 
   chart
@@ -249,7 +245,7 @@ function updateBar(data) {
       return i * 100;
     })
     .attr("x", function (d) {
-      return xTo(d[rCol]) + rightOffset + 95;
+      return xTo(d[rCol]) + rightOffset + 145;
     })
     .attr("y", function (d) {
       return y(d.symptoms) + y.bandwidth() / 2;
@@ -258,7 +254,7 @@ function updateBar(data) {
     .attr("dy", ".36em")
     .attr("text-anchor", "end")
     .text(function (d) {
-      return d[rCol];
+      return d[rCol] + "%";
     });
 }
 
@@ -267,19 +263,19 @@ d3.csv(symptomsTwoWeeks, type).then(renderSymptoms);
 // Symptoms buttons
 var symptomsButtons = [
   {
-    name: "Two Weeks",
+    name: "In the last two weeks",
     data: symptomsTwoWeeks,
   },
   {
-    name: "This Month",
+    name: "In the last 30 days",
     data: symptomsThisMonth,
   },
   {
-    name: "This Year",
+    name: "In the last 12 months",
     data: symptomsThisYear,
   },
   {
-    name: "Not This Year",
+    name: "Not in the last 12 months",
     data: symptomsNotThisYear,
   },
   {

@@ -15,9 +15,9 @@ var xLabel = "percentage";
 var x = d3.scaleLinear().domain([0, 100]).range([0, width]);
 var y = d3.scaleBand().rangeRound([20, height]);
 
-function renderHelp(data) {
-  chart = d3
-    .select(".s7Chart")
+function renderHelp(data, className) {
+  var chart = d3
+    .select(className)
     .append("svg")
     .attr("class", "seekingHelpChart")
     .attr("width", labelArea + width)
@@ -81,7 +81,7 @@ function renderHelp(data) {
     .attr("text-anchor", "end")
     .attr("class", "rightscore")
     .text(function (d) {
-      return d[xLabel];
+      return d[xLabel] +"%";
     });
 
   chart
@@ -92,8 +92,8 @@ function renderHelp(data) {
     .text("");
   chart
     .append("text")
-    .attr("x", leftMargin - 15)
-    .attr("y", 20)
+    .attr("x", 25)
+    .attr("y", 15)
     .attr("class", "title")
     .text("Groups");
 }
@@ -109,5 +109,5 @@ function capitalize(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-d3.csv(seekingHelpPast, type).then(renderHelp);
-d3.csv(seekingHelpFuture, type).then(renderHelp);
+d3.csv(seekingHelpPast, type).then(data => renderHelp(data, "s7ChartPast"));
+d3.csv(seekingHelpFuture, type).then(data => renderHelp(data, "s7ChartFuture"));
